@@ -30,3 +30,6 @@ build/
 ### VS Code ###
 .vscode/
 /src/main/resources/application-secrets.properties
+/src/test/resources/application-secrets.properties
+
+
