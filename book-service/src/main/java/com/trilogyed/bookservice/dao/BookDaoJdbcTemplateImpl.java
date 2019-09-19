@@ -69,7 +69,6 @@ public class BookDaoJdbcTemplateImpl implements BookDao {
                 book.getTitle(),
                 book.getAuthor(),
                 book.getBookId());
-
     }
 
     @Override
