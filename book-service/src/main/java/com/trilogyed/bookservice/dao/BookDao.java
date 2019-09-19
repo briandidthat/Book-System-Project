@@ -6,7 +6,7 @@ import java.util.List;
 
 /*Task:
  * Book Dao that will be used to define all of the necessary methods
- * Will be overriden inside the impl class
+ * Will be overridden inside the impl class
  */
 public interface BookDao {
     Book addBook(Book book);

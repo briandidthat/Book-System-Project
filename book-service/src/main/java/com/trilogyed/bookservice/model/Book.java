@@ -1,14 +1,23 @@
 package com.trilogyed.bookservice.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /*Task:
- *  Book Model that will map to a book object in the databas
+ *  Book Model that will map to a book object in the database
  */
-public class Book {
+public class Book implements Serializable {
     private int bookId;
     private String title;
     private String author;
+
+    public Book() {
+    }
+
+    public Book(int bookId, String title) {
+        this.bookId = bookId;
+        this.title = title;
+    }
 
     public void setBookId(int bookId) {
         this.bookId = bookId;
