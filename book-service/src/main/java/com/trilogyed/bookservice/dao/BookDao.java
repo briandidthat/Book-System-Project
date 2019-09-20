@@ -8,6 +8,7 @@ import java.util.List;
  * Book Dao that will be used to define all of the necessary methods
  * Will be overridden inside the impl class
  */
+
 public interface BookDao {
     Book addBook(Book book);
     Book getBook(int id);
