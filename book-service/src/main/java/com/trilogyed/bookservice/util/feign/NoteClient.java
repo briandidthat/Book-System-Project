@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @FeignClient(name="note-service")
@@ -24,7 +25,7 @@ public interface NoteClient {
     public List<Note> getNotesByBookId(@PathVariable int bookId);
 
     @RequestMapping(value="/notes/{id}", method = RequestMethod.PUT)
-    public void updateNote(@PathVariable int noteId);
+    public void updateNote(@PathVariable int noteId, @RequestBody @Valid Note note);
 
     @RequestMapping(value = "/notes/{id}", method = RequestMethod.DELETE)
     public void deleteNote(@PathVariable int noteId);
