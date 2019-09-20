@@ -61,6 +61,9 @@ public class BookService {
 
     }
 
+    public void deleteBook(int id) {
+        bookDao.deleteBook(id);
+    }
     private BookViewModel buildBookViewModel(Book book) {
         BookViewModel bvm = new BookViewModel();
         bvm.setBookId(book.getBookId());
