@@ -42,7 +42,7 @@ public class BookDaoJdbcTemplateImpl implements BookDao {
                 book.getTitle(),
                 book.getAuthor());
 
-        int id = jdbcTemplate.queryForObject("select LAST_INSERT()", Integer.class);
+        int id = jdbcTemplate.queryForObject("select LAST_INSERT_ID()", Integer.class);
         book.setBookId(id);
 
         return book;

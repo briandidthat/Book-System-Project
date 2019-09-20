@@ -4,6 +4,7 @@ import com.trilogyed.noteservice.model.Note;
 
 import java.util.List;
 
+
 public interface NoteDao {
 
     //add note
