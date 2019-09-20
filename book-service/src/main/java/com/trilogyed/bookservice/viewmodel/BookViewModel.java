@@ -4,5 +4,5 @@ package com.trilogyed.bookservice.viewmodel;
  *
  */
 public class BookViewModel {
-    
+
 }
