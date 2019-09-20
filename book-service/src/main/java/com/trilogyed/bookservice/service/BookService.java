@@ -9,8 +9,6 @@ import com.trilogyed.bookservice.viewmodel.BookViewModel;
  * Private methods: BuildBookViewModel(),
  */
 public class BookService {
-
-
     private BookViewModel buildViewModel(Book book) {
         return null;
     }
