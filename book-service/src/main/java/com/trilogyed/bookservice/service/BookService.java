@@ -27,20 +27,41 @@ public class BookService {
         this.noteClient = noteClient;
     }
 
+    public BookViewModel saveBook(Book book) {
+        book = bookDao.addBook(book);
+        return buildBookViewModel(book);
+    }
+
+    public BookViewModel findBookById(int id) {
+        Book book = bookDao.getBook(id);
+        if (book == null) {
+            return null;
+        } else {
+            return buildBookViewModel(book);
+        }
+    }
 
     public List<BookViewModel> getBooks() {
         List<Book> bookList = bookDao.getAllBooks();
         List<BookViewModel> bvmList = new ArrayList<>();
 
         for (Book b: bookList) {
-            BookViewModel bvm = buildViewModel(b);
+            BookViewModel bvm = buildBookViewModel(b);
             bvmList.add(bvm);
         }
         return bvmList;
     }
 
+    public void updateBook(Book book) {
+        bookDao.updateBook(book);
+    }
 
-    private BookViewModel buildViewModel(Book book) {
+    // this will use the queue system
+    public void addNote(Note note) {
+
+    }
+
+    private BookViewModel buildBookViewModel(Book book) {
         BookViewModel bvm = new BookViewModel();
         bvm.setBookId(book.getBookId());
         bvm.setTitle(book.getTitle());
