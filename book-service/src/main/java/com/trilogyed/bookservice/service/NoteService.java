@@ -28,4 +28,8 @@ public class NoteService {
         return noteClient.getNotesByBookId(bookId);
     }
 
+    public void removeNote(int id) {
+        noteClient.deleteNote(id);
+    }
+
 }
