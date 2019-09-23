@@ -8,6 +8,7 @@ import com.trilogyed.bookservice.util.feign.NoteClient;
 import com.trilogyed.bookservice.viewmodel.BookViewModel;
 import org.junit.Before;
 import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +45,6 @@ public class ServiceLayerTest {
 
         bvm.setNoteList(notes);
 
-
         Book book = new Book();
         book.setTitle("The Gadfly");
         book.setAuthor("Ethel Lilian Voynich");
@@ -52,7 +52,6 @@ public class ServiceLayerTest {
         BookViewModel fromService = service.saveBook(book);
 
         assertEquals(bvm, fromService);
-
 
     }
 
@@ -100,14 +99,11 @@ public class ServiceLayerTest {
     }
 
 
-    @Test
     public void removeBook(){
         service.deleteBook(3);
         BookViewModel bvm = service.findBookById(3);
         assertNull(bvm);
     }
-
-
 
     //mocks
     public void setUpBookDaoMock(){
@@ -169,7 +165,6 @@ public class ServiceLayerTest {
         List<Note> notes = new ArrayList<>();
         notes.add(note);
 
-        doReturn(note).when(noteClient).createNote(note1);
         doReturn(note).when(noteClient).getNote(1);
         doReturn(notes).when(noteClient).getAllNotes();
         doReturn(notes).when(noteClient).getNotesByBookId(45);
@@ -181,8 +176,6 @@ public class ServiceLayerTest {
         noteUpdate.setBookId(45);
         noteUpdate.setNote("Update notes about a book");
 
-        //need to check this
-        doNothing().when(noteClient).updateNote(note.getNoteId(), note);
         doReturn(noteUpdate).when(noteClient).getNote(2);
 
         //mock the delete
@@ -192,27 +185,9 @@ public class ServiceLayerTest {
         noteDelete.setBookId(45);
         noteDelete.setNote("Note for deletion");
 
-        doNothing().when(noteClient).deleteNote(3);
         doReturn(null).when(noteClient).getNote(3);
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

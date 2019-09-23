@@ -1,7 +1,10 @@
 package com.trilogyed.noteconsumer;
 
+import com.trilogyed.noteconsumer.util.feign.NoteClient;
 import com.trilogyed.noteconsumer.util.messages.NoteListEntry;
+import com.trilogyed.noteconsumer.util.model.Note;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /*Task:
@@ -9,8 +12,20 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class NoteListener {
+    @Autowired
+    NoteClient noteClient;
+
     @RabbitListener(queues = NoteConsumerApplication.QUEUE_NAME)
-    public void receiveMessage(NoteListEntry noteListEntry) {
-        System.out.println(noteListEntry.toString());
+    public Note createNote(NoteListEntry noteListEntry) {
+        Note note = new Note(noteListEntry.getBookId(), noteListEntry.getNote());
+        note = noteClient.createNote(note);
+        System.out.println(note.toString());
+        return note;
     }
+//    @RabbitListener(queues = NoteConsumerApplication.QUEUE_NAME)
+    public void updateNote(NoteListEntry noteListEntry) {
+        Note note = new Note(noteListEntry.getBookId(), noteListEntry.getNote());
+        noteClient.updateNote(noteListEntry.getNoteId(), note);
+    }
+
 }

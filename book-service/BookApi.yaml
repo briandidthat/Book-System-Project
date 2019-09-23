@@ -1,0 +1,160 @@
+openapi: 3.0.0
+info:
+  title: "Book System Service"
+  description: >-
+    The Book system that keeps track of Book and associating notes.
+  version: "0.0.1"
+servers:
+  - url: 'http://localhost:4242'
+    description: Local Book server.
+paths:
+  /books:
+    post:
+      summary: "Creates single book"
+      description: "Store a Book in the Database"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '200':
+          description: "An object of Book"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                items: 
+                  $ref: '#/components/schemas/BookViewModel'
+        '422':
+          description: "Invalid Book Entry"
+    get:
+      summary: "Retrieves list of all books"
+      responses:
+        '200':
+          description: "A list of books"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items: 
+                  $ref: '#/components/schemas/BookViewModel'
+  /books/{id}:                
+    put:
+      summary: "Updates a single book based on id"
+      description: "Updates the book"
+      parameters: 
+        - name: "id"
+          in: "path"
+          required: true
+          description: "bookId for a specific book"
+          schema:
+            type: "number"
+            format: int64
+            minimum: 1
+            maximum: 11
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '200':
+          description: "An object of book"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                items: 
+                  $ref: '#/components/schemas/Book'
+        '422':
+          description: "Invalid Book Entry"
+        '404':
+          description: "Book couldn't be retrived by the Id provided"
+          
+    delete:
+      summary: "Deletes a single book based on id"
+      description: "delete the book from Database"
+      parameters: 
+        - name: "id"
+          in: "path"
+          required: true
+          description: "bookId for a specific book"
+          schema:
+            type: "number"
+            format: int64
+            minimum: 1
+            maximum: 11
+      responses:
+        '204':
+          description: "Book deleted"
+    get:
+      summary: "Retrieves single book based on bookId"
+      description: "retrieve the book by the Id provided"
+      parameters: 
+        - name: "id"
+          in: "path"
+          required: true
+          description: "bookId to retrieve a single book" 
+          schema:
+            type: "number"
+            format: int64
+            minimum: 1
+            maximum: 11
+      responses:
+        '200':
+          description: "An object of book"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                items: 
+                  $ref: '#/components/schemas/BookViewModel'
+        '404':
+          description: "Book couldn't be retrived by the Id provided"          
+components:
+  schemas:
+    Book:
+      type: "object"
+      properties:
+        bookId:
+          type: "number"
+        title:
+          type: "string"
+        author:
+          type: "string"
+      required:
+        - "title"
+        - "author"
+    Note:
+      properties:
+        id:
+          type: integer
+        bookId:
+          type: integer
+        note:
+          type: string
+      required:
+        - bookId
+        - note
+    BookViewModel:
+      properties:
+        bookId:
+          type: "number"
+        title:
+          type: "string"
+        author:
+          type: "string"
+        notes:
+          type: "array"
+          items:
+            $ref: '#/components/schemas/Note' 
+      required:
+        - bookId
+        - title
+        - author
+          
+        
+    

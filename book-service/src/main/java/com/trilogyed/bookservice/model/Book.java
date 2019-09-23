@@ -5,6 +5,7 @@ import java.util.Objects;
 
 /*Task:
  *  Book Model that will map to a book object in the database
+ *  Will be cached, so we use Serializeable
  */
 public class Book implements Serializable {
     private int bookId;
