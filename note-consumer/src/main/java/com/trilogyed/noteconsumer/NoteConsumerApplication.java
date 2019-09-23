@@ -7,16 +7,18 @@ import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
+@EnableFeignClients
 public class NoteConsumerApplication {
 	// DEFINE TOPIC EXCHANGE NAME FOR COMMUNICATION
 	public static final String TOPIC_EXCHANGE_NAME = "note-exchange";
 	// DEFINE NAME OF QUEUE THAT THE APPLICATION WILL BE USING
-	public static final String QUEUE_NAME = "note-list-add-queue";
+	public static final String QUEUE_NAME = "note-queue";
 	// DEFINE ROUTING KEY THAT IS MANDATORY FOR ALL TRANSACTIONS
-	public static final String ROUTING_KEY = "note.list.add.#";
+	public static final String ROUTING_KEY = "note.#";
 
 	@Bean
 	Queue queue() {

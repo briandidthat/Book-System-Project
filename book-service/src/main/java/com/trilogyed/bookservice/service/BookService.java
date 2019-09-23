@@ -26,7 +26,31 @@ public class BookService {
         this.bookDao = bookDao;
         this.noteClient = noteClient;
     }
+// NOTE METHODS
+// =============================================================================================
+    // this will use the queue system
+//    public Note saveNote(Note note) {
+//        return noteClient.createNote(note);
+//    }
+//
+//    public Note findNote(int id) {
+//        return noteClient.getNote(id);
+//    }
+//
+//    public List<Note> findAllNotes() {
+//        return noteClient.getAllNotes();
+//    }
+//
+//    public List<Note> findNotesByBookId(int bookId) {
+//        return noteClient.getNotesByBookId(bookId);
+//    }
+//
+//    public void updateNote(int noteId, Note note) {
+//        noteClient.updateNote(noteId,note);
+//    }
 
+// BOOK METHODS
+// =============================================================================================
     public BookViewModel saveBook(Book book) {
         book = bookDao.addBook(book);
         return buildBookViewModel(book);
@@ -56,14 +80,11 @@ public class BookService {
         bookDao.updateBook(book);
     }
 
-    // this will use the queue system
-    public void addNote(Note note) {
-
-    }
 
     public void deleteBook(int id) {
         bookDao.deleteBook(id);
     }
+
     private BookViewModel buildBookViewModel(Book book) {
         BookViewModel bvm = new BookViewModel();
         bvm.setBookId(book.getBookId());
