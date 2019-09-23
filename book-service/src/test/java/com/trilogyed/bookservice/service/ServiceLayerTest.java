@@ -88,7 +88,32 @@ public class ServiceLayerTest {
     }
 
     @Test
-    public void updateBook(){}
+    public void updateBook(){
+        Book book = new Book();
+
+
+    }
+
+
+    /*
+     public void updateTShirt(){
+        TShirtViewModel tvmUpdate = new TShirtViewModel();
+        tvmUpdate.settShirtId(1);
+        tvmUpdate.setSize("MU");
+        tvmUpdate.setColor("Green");
+        tvmUpdate.setDescription("Green T-Shirt");
+        tvmUpdate.setPrice(13.99);
+        tvmUpdate.setQuantity(9);
+        service.updateTShirt(tvmUpdate);
+
+        TShirtViewModel tvm2 = service.findTShirt(tvmUpdate.gettShirtId());
+        assertEquals(tvmUpdate, tvm2);
+    }
+     */
+
+
+
+
 
     @Test
     public void removeBook(){
