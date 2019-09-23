@@ -20,15 +20,12 @@ import java.util.List;
  * Will serve as the main point of contact and will direct all incoming traffic to the appropriate methods
  * Will need to communicate with the service layer, and the note service/queue
  */
-@RestController
-@CacheConfig(cacheNames = {"books"})
-public class BookController {
-    private BookService bookService;
 
+@CacheConfig(cacheNames = {"books"})
+@RestController
+public class BookController {
     @Autowired
-    public BookController(BookService bookService) {
-        this.bookService = bookService;
-    }
+    BookService bookService;
 
     @CachePut(key = "#result.getBookId()")
     @RequestMapping(value = "/books", method = RequestMethod.POST)

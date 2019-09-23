@@ -7,6 +7,7 @@ import com.trilogyed.bookservice.util.feign.NoteClient;
 import com.trilogyed.bookservice.viewmodel.BookViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +19,8 @@ import java.util.List;
  */
 @Component
 public class BookService {
-    private BookDao bookDao;
-    private NoteClient noteClient;
+    BookDao bookDao;
+    NoteClient noteClient;
 
     @Autowired
     public BookService(BookDao bookDao, NoteClient noteClient) {
@@ -51,6 +52,7 @@ public class BookService {
 
 // BOOK METHODS
 // =============================================================================================
+    @Transactional
     public BookViewModel saveBook(Book book) {
         book = bookDao.addBook(book);
         return buildBookViewModel(book);
@@ -96,6 +98,5 @@ public class BookService {
 
         return bvm;
     }
-
 
 }
