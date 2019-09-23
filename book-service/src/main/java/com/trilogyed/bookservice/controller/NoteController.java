@@ -47,22 +47,28 @@ public class NoteController {
     }
 
     //  SIMPLE NOTE ROUTES, WILL BE USED INTERNALLY TO PERFORM OPERATIONS THAT DO NOT NEED TO USE THE QUEUE
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<Note> getAllNotes() {
+        return noteService.findAllNotes();
+    }
+
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Note getNoteById(@PathVariable int id) {
         return noteService.findNote(id);
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteNote(int id) {
+        noteService.removeNote(id);
+    }
+
     @GetMapping("/book/{bookId}")
     @ResponseStatus(HttpStatus.OK)
     public List<Note> getNotesByBookId(@PathVariable int bookId) {
         return noteService.findNotesByBookId(bookId);
-    }
-
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<Note> getAllNotes() {
-        return noteService.findAllNotes();
     }
 
 }

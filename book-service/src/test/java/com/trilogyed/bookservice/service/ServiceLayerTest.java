@@ -45,7 +45,6 @@ public class ServiceLayerTest {
 
         bvm.setNoteList(notes);
 
-
         Book book = new Book();
         book.setTitle("The Gadfly");
         book.setAuthor("Ethel Lilian Voynich");
@@ -53,7 +52,6 @@ public class ServiceLayerTest {
         BookViewModel fromService = service.saveBook(book);
 
         assertEquals(bvm, fromService);
-
 
     }
 
@@ -87,40 +85,25 @@ public class ServiceLayerTest {
 
     @Test
     public void updateBook(){
-        Book book = new Book();
+        Book bookUpdate = new Book();
+        bookUpdate.setBookId(1);
+        bookUpdate.setTitle("Title Updated");
+        bookUpdate.setAuthor("Author Updated");
 
+        service.updateBook(bookUpdate);
+
+        Book book = bookDao.getBook(1);
+
+        assertEquals(bookUpdate, book);
 
     }
 
 
-    /*
-     public void updateTShirt(){
-        TShirtViewModel tvmUpdate = new TShirtViewModel();
-        tvmUpdate.settShirtId(1);
-        tvmUpdate.setSize("MU");
-        tvmUpdate.setColor("Green");
-        tvmUpdate.setDescription("Green T-Shirt");
-        tvmUpdate.setPrice(13.99);
-        tvmUpdate.setQuantity(9);
-        service.updateTShirt(tvmUpdate);
-
-        TShirtViewModel tvm2 = service.findTShirt(tvmUpdate.gettShirtId());
-        assertEquals(tvmUpdate, tvm2);
-    }
-     */
-
-
-
-
-
-    @Test
     public void removeBook(){
         service.deleteBook(3);
         BookViewModel bvm = service.findBookById(3);
         assertNull(bvm);
     }
-
-
 
     //mocks
     public void setUpBookDaoMock(){
@@ -181,8 +164,7 @@ public class ServiceLayerTest {
 
         List<Note> notes = new ArrayList<>();
         notes.add(note);
-//
-//        doReturn(note).when(noteClient).createNote(note1);
+
         doReturn(note).when(noteClient).getNote(1);
         doReturn(notes).when(noteClient).getAllNotes();
         doReturn(notes).when(noteClient).getNotesByBookId(45);
@@ -194,8 +176,6 @@ public class ServiceLayerTest {
         noteUpdate.setBookId(45);
         noteUpdate.setNote("Update notes about a book");
 
-        //need to check this
-//        doNothing().when(noteClient).updateNote(note.getNoteId(), note);
         doReturn(noteUpdate).when(noteClient).getNote(2);
 
         //mock the delete
@@ -205,27 +185,9 @@ public class ServiceLayerTest {
         noteDelete.setBookId(45);
         noteDelete.setNote("Note for deletion");
 
-//        doNothing().when(noteClient).deleteNote(3);
         doReturn(null).when(noteClient).getNote(3);
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
