@@ -6,11 +6,8 @@ import com.trilogyed.bookservice.model.Book;
 import com.trilogyed.bookservice.model.Note;
 import com.trilogyed.bookservice.util.feign.NoteClient;
 import com.trilogyed.bookservice.viewmodel.BookViewModel;
-import org.aspectj.weaver.ast.Not;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.stereotype.Repository;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,30 +86,18 @@ public class ServiceLayerTest {
 
     @Test
     public void updateBook(){
-        Book book = new Book();
+        Book bookUpdate = new Book();
+        bookUpdate.setBookId(1);
+        bookUpdate.setTitle("Title Updated");
+        bookUpdate.setAuthor("Author Updated");
 
+        service.updateBook(bookUpdate);
+
+        Book book = bookDao.getBook(1);
+
+        assertEquals(bookUpdate, book);
 
     }
-
-
-    /*
-     public void updateTShirt(){
-        TShirtViewModel tvmUpdate = new TShirtViewModel();
-        tvmUpdate.settShirtId(1);
-        tvmUpdate.setSize("MU");
-        tvmUpdate.setColor("Green");
-        tvmUpdate.setDescription("Green T-Shirt");
-        tvmUpdate.setPrice(13.99);
-        tvmUpdate.setQuantity(9);
-        service.updateTShirt(tvmUpdate);
-
-        TShirtViewModel tvm2 = service.findTShirt(tvmUpdate.gettShirtId());
-        assertEquals(tvmUpdate, tvm2);
-    }
-     */
-
-
-
 
 
     @Test
