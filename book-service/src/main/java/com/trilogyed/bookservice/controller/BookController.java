@@ -1,6 +1,5 @@
 package com.trilogyed.bookservice.controller;
 
-import com.trilogyed.bookservice.dao.BookDao;
 import com.trilogyed.bookservice.exception.NotFoundException;
 import com.trilogyed.bookservice.model.Book;
 import com.trilogyed.bookservice.service.BookService;
@@ -21,15 +20,12 @@ import java.util.List;
  * Will serve as the main point of contact and will direct all incoming traffic to the appropriate methods
  * Will need to communicate with the service layer, and the note service/queue
  */
-@RestController
-@CacheConfig(cacheNames = {"books"})
-public class BookController {
-    private BookService bookService;
 
+@CacheConfig(cacheNames = {"books"})
+@RestController
+public class BookController {
     @Autowired
-    public BookController(BookService bookService) {
-        this.bookService = bookService;
-    }
+    BookService bookService;
 
     @CachePut(key = "#result.getBookId()")
     @RequestMapping(value = "/books", method = RequestMethod.POST)
@@ -45,12 +41,12 @@ public class BookController {
         BookViewModel bvm = bookService.findBookById(id);
         if (bvm == null) {
             throw new NotFoundException("Sorry, we could not find any book with that id.");
-        } else {
-            return bvm;
         }
+        return bvm;
     }
 
     @RequestMapping(value = "/books", method= RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
     public List<BookViewModel> getAllBooks() {
         return bookService.getBooks();
     }
@@ -58,8 +54,21 @@ public class BookController {
     @CacheEvict(key = "#book.getId()")
     @RequestMapping(value="/book/{id}",method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateBook(@PathVariable("id") @RequestBody @Valid Book book) {
+    public void updateBook(@PathVariable("id") int id, @RequestBody @Valid Book book) {
+        if (book.getBookId() == 0) {
+            book.setBookId(id);
+        }
+        if (id != book.getBookId()){
+            throw new IllegalArgumentException("Book Id on path must match the ID in the Book object.");
+        }
         bookService.updateBook(book);
+    }
+
+    @CacheEvict
+    @RequestMapping(value = "/books/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteBook(@PathVariable int id) {
+        bookService.deleteBook(id);
     }
 
 }

@@ -17,9 +17,7 @@ import org.springframework.web.context.request.WebRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-/*Task:
- *
- */
+
 @RestControllerAdvice
 @RequestMapping(produces = "application/vnd.error+json")
 public class ControllerExceptionHandler {
