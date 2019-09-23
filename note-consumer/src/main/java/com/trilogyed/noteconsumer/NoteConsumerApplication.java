@@ -10,8 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
-@SpringBootApplication
 @EnableFeignClients
+@SpringBootApplication
 public class NoteConsumerApplication {
 	// DEFINE TOPIC EXCHANGE NAME FOR COMMUNICATION
 	public static final String TOPIC_EXCHANGE_NAME = "note-exchange";

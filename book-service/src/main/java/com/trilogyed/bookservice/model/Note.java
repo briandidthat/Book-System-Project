@@ -1,15 +1,23 @@
 package com.trilogyed.bookservice.model;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /*Task:
  *  Will Map the note to the note in the DB
+ *  Will be cached, so we use
  */
-public class Note implements Serializable {
+public class Note {
     private int noteId;
     private int bookId;
     private String note;
+
+    public Note(int bookId, String note) {
+        this.bookId = bookId;
+        this.note = note;
+    }
+
+    public Note() {
+    }
 
     // SETTERS
     public void setNoteId(int noteId) {
