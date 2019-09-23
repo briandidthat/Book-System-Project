@@ -1,12 +1,22 @@
-package com.trilogyed.bookservice.util.message;
+package com.trilogyed.noteconsumer.util.model;
 
 import java.util.Objects;
 
-
-public class NoteListEntry {
+/*Task:
+ *
+ */
+public class Note {
     private int noteId;
     private int bookId;
     private String note;
+
+    public Note(int bookId, String note) {
+        this.bookId = bookId;
+        this.note = note;
+    }
+
+    public Note() {
+    }
 
     public int getNoteId() {
         return noteId;
@@ -36,7 +46,7 @@ public class NoteListEntry {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NoteListEntry that = (NoteListEntry) o;
+        Note that = (Note) o;
         return noteId == that.noteId &&
                 bookId == that.bookId &&
                 Objects.equals(note, that.note);
@@ -55,4 +65,6 @@ public class NoteListEntry {
                 ", note='" + note + '\'' +
                 '}';
     }
+
 }
+

@@ -2,7 +2,9 @@ package com.trilogyed.bookservice.controller;
 
 import com.trilogyed.bookservice.exception.NotFoundException;
 import com.trilogyed.bookservice.model.Book;
+import com.trilogyed.bookservice.model.Note;
 import com.trilogyed.bookservice.service.BookService;
+import com.trilogyed.bookservice.service.NoteService;
 import com.trilogyed.bookservice.viewmodel.BookViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -23,19 +25,22 @@ import java.util.List;
 
 @CacheConfig(cacheNames = {"books"})
 @RestController
+@RequestMapping("/books")
 public class BookController {
     @Autowired
     BookService bookService;
+    @Autowired
+    NoteService noteService;
 
+    @PostMapping
     @CachePut(key = "#result.getBookId()")
-    @RequestMapping(value = "/books", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public BookViewModel createBook(@RequestBody @Valid Book book) {
         return bookService.saveBook(book);
     }
 
     @Cacheable
-    @RequestMapping(value = "/books/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public BookViewModel getBook(@PathVariable int id) {
         BookViewModel bvm = bookService.findBookById(id);
@@ -45,14 +50,14 @@ public class BookController {
         return bvm;
     }
 
-    @RequestMapping(value = "/books", method= RequestMethod.GET)
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<BookViewModel> getAllBooks() {
         return bookService.getBooks();
     }
 
     @CacheEvict(key = "#book.getId()")
-    @RequestMapping(value="/book/{id}",method = RequestMethod.PUT)
+    @RequestMapping(value="/{id}",method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateBook(@PathVariable("id") int id, @RequestBody @Valid Book book) {
         if (book.getBookId() == 0) {
@@ -65,7 +70,7 @@ public class BookController {
     }
 
     @CacheEvict
-    @RequestMapping(value = "/books/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteBook(@PathVariable int id) {
         bookService.deleteBook(id);

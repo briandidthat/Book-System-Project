@@ -1,14 +1,17 @@
-package com.trilogyed.noteconsumer.util.messages;
+package com.trilogyed.bookservice.util.messages;
 
 import java.util.Objects;
 
+/*Task:
+ *  WILL SERVE AS THE MESSAGE THAT WE WILL SEND OVER THE WIRE
+ */
 public class NoteListEntry {
     private int noteId;
     private int bookId;
     private String note;
 
-    public NoteListEntry(int noteId, String note) {
-        this.noteId = noteId;
+    public NoteListEntry(int bookId, String note) {
+        this.bookId = bookId;
         this.note = note;
     }
 

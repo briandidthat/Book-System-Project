@@ -6,10 +6,8 @@ import com.trilogyed.bookservice.model.Book;
 import com.trilogyed.bookservice.model.Note;
 import com.trilogyed.bookservice.util.feign.NoteClient;
 import com.trilogyed.bookservice.viewmodel.BookViewModel;
-import org.aspectj.weaver.ast.Not;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,8 +156,8 @@ public class ServiceLayerTest {
 
         List<Note> notes = new ArrayList<>();
         notes.add(note);
-
-        doReturn(note).when(noteClient).createNote(note1);
+//
+//        doReturn(note).when(noteClient).createNote(note1);
         doReturn(note).when(noteClient).getNote(1);
         doReturn(notes).when(noteClient).getAllNotes();
         doReturn(notes).when(noteClient).getNotesByBookId(45);
@@ -172,7 +170,7 @@ public class ServiceLayerTest {
         noteUpdate.setNote("Update notes about a book");
 
         //need to check this
-        doNothing().when(noteClient).updateNote(note.getNoteId(), note);
+//        doNothing().when(noteClient).updateNote(note.getNoteId(), note);
         doReturn(noteUpdate).when(noteClient).getNote(2);
 
         //mock the delete
@@ -182,7 +180,7 @@ public class ServiceLayerTest {
         noteDelete.setBookId(45);
         noteDelete.setNote("Note for deletion");
 
-        doNothing().when(noteClient).deleteNote(3);
+//        doNothing().when(noteClient).deleteNote(3);
         doReturn(null).when(noteClient).getNote(3);
 
     }
