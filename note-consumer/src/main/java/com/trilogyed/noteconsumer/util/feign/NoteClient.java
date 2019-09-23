@@ -15,7 +15,4 @@ public interface NoteClient {
     @RequestMapping(value="/notes/{id}", method = RequestMethod.PUT)
     public void updateNote(@PathVariable int id, @RequestBody Note note);
 
-    @RequestMapping(value = "/notes/{id}", method = RequestMethod.DELETE)
-    public void deleteNote(@PathVariable int id);
-
 }

@@ -27,9 +27,5 @@ public class NoteListener {
         Note note = new Note(noteListEntry.getBookId(), noteListEntry.getNote());
         noteClient.updateNote(noteListEntry.getNoteId(), note);
     }
-//    @RabbitListener(queues = NoteConsumerApplication.QUEUE_NAME)
-    public void deleteNote(int noteId) {
-        noteClient.deleteNote(noteId);
-    }
 
 }
