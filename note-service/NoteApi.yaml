@@ -1,0 +1,132 @@
+openapi: 3.0.0
+info:
+  title: Note Service
+  description: REST service that allows CRUD operations for Notes Service
+  version: 0.0.1
+servers: 
+  - url: 'http://localhost:1984'
+    description: Local Note server.
+paths:
+  /notes:
+    post:
+      summary: Creates a new note with provided information.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Note'
+      responses:
+        '201':
+          description: A Note object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+        '400':
+          description: Invalid request syntax.
+        '422':
+          description: Incomplete note information. Some required fields are missing.
+    get:
+      summary: Retreives list of notes.
+      responses:
+        '200':
+          description: An array of note objects.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+                
+  /notes/{id}:
+    get:
+      summary: Retreives a note with a given ID.
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          description: Id of the note to be retreived.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: Note object matching given ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+        '422':
+          description: Note with give Id could not be found.
+    delete:
+      summary: Deletes note with the given ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the name you would like to delete.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: Note successfully deleted.
+        '422':
+          description: Note with given Id could not be found
+    put:
+      summary: Updates the note with the given ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the note you would like to update.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Note'
+      responses:
+        '200':
+          description: Game successfully updated.
+        '422':
+          description: Game ID on path must match the ID in the Game object.
+  /notes/book/{bookId}:
+    get:
+      summary: Retreives notes for the book with the bookId.
+      parameters: 
+        - name: bookId
+          in: path
+          required: true
+          description: Id of the book for which notes should be retreived.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of notes for a given book
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: '#/components/schemas/Note'
+        '422':
+          description: List of Notes for given bookId could not be found. 
+          
+components:
+  schemas:
+    Note:
+      properties:
+        id:
+          type: integer
+        bookId:
+          type: integer
+        note:
+          type: string
+      required:
+        - bookId
