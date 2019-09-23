@@ -6,6 +6,7 @@ import com.trilogyed.bookservice.model.Book;
 import com.trilogyed.bookservice.model.Note;
 import com.trilogyed.bookservice.util.feign.NoteClient;
 import com.trilogyed.bookservice.viewmodel.BookViewModel;
+import org.aspectj.weaver.ast.Not;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.stereotype.Repository;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
 
 public class ServiceLayerTest {
 
@@ -32,11 +34,12 @@ public class ServiceLayerTest {
     @Test
     public void saveBook(){
         BookViewModel bvm = new BookViewModel();
-
+        bvm.setBookId(45);
         bvm.setTitle("The Gadfly");
         bvm.setAuthor("Ethel Lilian Voynich");
 
         Note note = new Note();
+        note.setNoteId(1);
         note.setBookId(45);
         note.setNote("Some note about a book");
         List<Note> notes = new ArrayList<>();
@@ -44,22 +47,55 @@ public class ServiceLayerTest {
 
         bvm.setNoteList(notes);
 
-        //bvm = service.saveBook(bvm);
 
-        //BookViewModel fromService = service.findBook(bvm.getId);
+        Book book = new Book();
+        book.setTitle("The Gadfly");
+        book.setAuthor("Ethel Lilian Voynich");
+
+        BookViewModel fromService = service.saveBook(book);
+
+        assertEquals(bvm, fromService);
+
+
     }
 
     @Test
-    public void findBook(){}
+    public void findBookById(){
+        BookViewModel bvm = new BookViewModel();
+        bvm.setBookId(45);
+        bvm.setTitle("The Gadfly");
+        bvm.setAuthor("Ethel Lilian Voynich");
+
+        Note note = new Note();
+        note.setNoteId(1);
+        note.setBookId(45);
+        note.setNote("Some note about a book");
+        List<Note> notes = new ArrayList<>();
+        notes.add(note);
+
+        bvm.setNoteList(notes);
+
+        BookViewModel fromService = service.findBookById(45);
+
+        assertEquals(fromService, bvm);
+
+    }
 
     @Test
-    public void findAllBooks(){}
+    public void getBooks(){
+        List<BookViewModel> fromService = service.getBooks();
+        assertEquals(fromService.size(), 1);
+    }
 
     @Test
     public void updateBook(){}
 
     @Test
-    public void removeBook(){}
+    public void removeBook(){
+        service.deleteBook(3);
+        BookViewModel bvm = service.findBookById(3);
+        assertNull(bvm);
+    }
 
 
 
