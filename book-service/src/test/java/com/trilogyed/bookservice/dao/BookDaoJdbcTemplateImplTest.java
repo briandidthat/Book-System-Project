@@ -13,16 +13,13 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-import static org.junit.Assert.*;
-
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 public class BookDaoJdbcTemplateImplTest {
 
-
     @Autowired
-    protected BookDao bookDao;
+    BookDao bookDao;
 
     @Before
     public void setUp() throws Exception {
