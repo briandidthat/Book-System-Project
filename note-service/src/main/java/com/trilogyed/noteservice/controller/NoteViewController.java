@@ -36,21 +36,21 @@ public class NoteViewController {
     }
 
     @RequestMapping(value="/notes/{id}", method = RequestMethod.PUT)
-    public void updateNote(@PathVariable int noteId, @RequestBody @Valid Note note){
-        if(noteId!=note.getNoteId()) {
+    public void updateNote(@PathVariable int id, @RequestBody @Valid Note note){
+        if(id!=note.getNoteId()) {
             throw new IllegalArgumentException("The Note id in the doesn't match");
         }
         noteDao.updateNote(note);
     }
 
     @RequestMapping(value = "/notes/{id}", method = RequestMethod.DELETE)
-    public void deleteNote(@PathVariable int noteId){
-        Note note = noteDao.getNote(noteId);
+    public void deleteNote(@PathVariable int id){
+        Note note = noteDao.getNote(id);
 
         if(note == null) {
             throw new NotFoundException("No note is available with this id");
         }else {
-            noteDao.deleteNote(noteId);
+            noteDao.deleteNote(id);
         }
     }
 
