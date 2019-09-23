@@ -4,6 +4,7 @@ import com.trilogyed.noteservice.model.Note;
 
 import java.util.List;
 
+
 public interface NoteDao {
 
     //add note
@@ -16,7 +17,7 @@ public interface NoteDao {
     List<Note>getAllNotes();
 
     //update Note
-    void updateNote(int noteId);
+    void updateNote(Note note);
 
     //delete Note
     void deleteNote(int noteId);
