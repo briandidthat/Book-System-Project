@@ -23,10 +23,10 @@ public interface NoteClient {
     public Note getNote(@PathVariable int id);
 
     @RequestMapping(value="/notes/{id}", method = RequestMethod.PUT)
-    public void updateNote(@PathVariable int noteId, @RequestBody @Valid Note note);
+    public void updateNote(@PathVariable int id, @RequestBody @Valid Note note);
 
     @RequestMapping(value = "/notes/{id}", method = RequestMethod.DELETE)
-    public void deleteNote(@PathVariable int noteId);
+    public void deleteNote(@PathVariable int id);
 
     @RequestMapping(value="/notes/book/{bookId}", method = RequestMethod.GET)
     public List<Note> getNotesByBookId(@PathVariable int bookId);
