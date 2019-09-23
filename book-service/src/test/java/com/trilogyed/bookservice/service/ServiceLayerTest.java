@@ -84,6 +84,21 @@ public class ServiceLayerTest {
     }
 
     @Test
+    public void updateBook(){
+        Book bookUpdate = new Book();
+        bookUpdate.setBookId(1);
+        bookUpdate.setTitle("Title Updated");
+        bookUpdate.setAuthor("Author Updated");
+
+        service.updateBook(bookUpdate);
+
+        Book book = bookDao.getBook(1);
+
+        assertEquals(bookUpdate, book);
+
+    }
+
+
     public void removeBook(){
         service.deleteBook(3);
         BookViewModel bvm = service.findBookById(3);
