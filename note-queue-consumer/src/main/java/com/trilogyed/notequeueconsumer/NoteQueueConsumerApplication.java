@@ -27,21 +27,26 @@ public class NoteQueueConsumerApplication {
 	public static final String QUEUE_NAME = "note-queue";
 	public static final String ROUTING_KEY = "note.#";
 
+	// Creating a Queue Object that is needed to perform queues (will encapsulate Queue name)
 	@Bean
 	Queue queue() {
 		return new Queue(QUEUE_NAME, false);
 	}
 
+	// Will instantiate the Topic Exchange Object
 	@Bean
 	TopicExchange exchange() {
 		return new TopicExchange(TOPIC_EXCHANGE_NAME);
 	}
 
+	// Binding the queue and exchange together  WITH the routing key for cohesive use
 	@Bean
 	Binding binding(Queue queue, TopicExchange exchange) {
 		return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
 	}
 
+	// Finally, defining the Jackson converter we will need to convert NoteEntry object json
+	// Producer(Book service) calls convertAndSend --> Consumer(NoteQueueConsumer) receives as Json for use.
 	@Bean
 	public Jackson2JsonMessageConverter jackson2JsonMessageConverter() {
 		return new Jackson2JsonMessageConverter();

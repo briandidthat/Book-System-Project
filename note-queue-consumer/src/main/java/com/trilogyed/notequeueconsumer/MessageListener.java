@@ -22,14 +22,16 @@ public class MessageListener {
 
     @RabbitListener(queues = NoteQueueConsumerApplication.QUEUE_NAME)
     public void receiveNote(NoteEntry noteEntry) {
-        System.out.println(noteEntry.toString());
-
+        // Use try catch block to catch potential errors without crashing the application
+        // and will log out the error
         try {
+            // If the entry does not have an id, we are creating a new note
             if (noteEntry.getNoteId() == 0) {
                 Note note = new Note(noteEntry.getBookId(), noteEntry.getNote());
                 noteClient.createNote(note);
                 System.out.println("Creating the following note: " + noteEntry.toString());
             } else {
+                //If the note entry has an ID, we are updating an existing note
                 Note note = new Note(noteEntry.getBookId(), noteEntry.getNote());
                 note.setNoteId(noteEntry.getNoteId());
                 System.out.println("Updating the following note: " + noteEntry.toString());
