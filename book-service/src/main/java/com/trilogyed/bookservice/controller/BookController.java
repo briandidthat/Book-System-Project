@@ -2,7 +2,6 @@ package com.trilogyed.bookservice.controller;
 
 import com.trilogyed.bookservice.exception.NotFoundException;
 import com.trilogyed.bookservice.model.Book;
-import com.trilogyed.bookservice.model.Note;
 import com.trilogyed.bookservice.service.BookService;
 import com.trilogyed.bookservice.service.NoteService;
 import com.trilogyed.bookservice.viewmodel.BookViewModel;
