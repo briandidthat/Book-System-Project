@@ -1,7 +1,9 @@
 package com.trilogyed.notequeueconsumer.util.messages;
 
-/*Task:
- *  Will serve as the intermediate class to receive messages from the producer
+/**
+ * NoteEntry:
+ * Will serve as the intermediate class to receive messages from the producer.
+ * Will capture data until we transfer it to the note class to send over the wire.
  */
 public class NoteEntry {
     private int noteId;

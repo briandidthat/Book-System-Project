@@ -13,8 +13,10 @@ import org.springframework.context.annotation.Bean;
 
 /**
  * Note-Queue-Consumer
- * Purpose:
- * Needed: @EnableFeignClients, @EnableDiscoveryClient
+ * Purpose: To provide configuration for the queue system.
+ * Needed Annotations:
+ * @EnableFeignClients - must use feign client to reach out to other service
+ * @EnableDiscoveryClient - must register with eureka, spring.application.name=note-queue
  */
 
 @EnableFeignClients

@@ -7,6 +7,14 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * MessageListener
+ * Purpose: To listen to the wire for incoming messages
+ * Needed Annotations:
+ * @Service - will tell spring to look for this class and treat it as a service
+ * @RabbitListener - will define the queue used for that specific method/ class
+ */
+
 @Service
 public class MessageListener {
     @Autowired
@@ -27,7 +35,7 @@ public class MessageListener {
                 System.out.println("Updating the following note: " + noteEntry.toString());
             }
         } catch (Exception e) {
-            System.out.println("Weird error: " + e.getMessage());
+            System.out.println("Server error: " + e.getMessage());
         }
     }
 }
