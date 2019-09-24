@@ -1,55 +1,58 @@
-package com.trilogyed.bookservice.util.messages;
+package com.trilogyed.notequeueconsumer.model;
 
 import java.util.Objects;
 
 /*Task:
- *  WILL SERVE AS THE MESSAGE THAT WE WILL SEND OVER THE WIRE
+ *
  */
-public class NoteListEntry {
+public class Note {
     private int noteId;
     private int bookId;
     private String note;
 
-    public NoteListEntry(int bookId, String note) {
+    public Note(int bookId, String note) {
         this.bookId = bookId;
         this.note = note;
     }
 
-    public NoteListEntry() {
+    public Note() {
     }
 
-    public int getNoteId() {
-        return noteId;
-    }
-
+    // SETTERS
     public void setNoteId(int noteId) {
         this.noteId = noteId;
-    }
-
-    public int getBookId() {
-        return bookId;
     }
 
     public void setBookId(int bookId) {
         this.bookId = bookId;
     }
 
-    public String getNote() {
-        return note;
-    }
-
     public void setNote(String note) {
         this.note = note;
     }
 
+    // GETTERS
+    public int getNoteId() {
+        return noteId;
+    }
+
+    public int getBookId() {
+        return bookId;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    //Equal and hashcode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NoteListEntry that = (NoteListEntry) o;
-        return noteId == that.noteId &&
-                bookId == that.bookId &&
-                Objects.equals(note, that.note);
+        Note note1 = (Note) o;
+        return noteId == note1.noteId &&
+                bookId == note1.bookId &&
+                note.equals(note1.note);
     }
 
     @Override
@@ -59,7 +62,7 @@ public class NoteListEntry {
 
     @Override
     public String toString() {
-        return "NoteListEntry{" +
+        return "Note{" +
                 "noteId=" + noteId +
                 ", bookId=" + bookId +
                 ", note='" + note + '\'' +
