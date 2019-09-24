@@ -2,7 +2,7 @@ package com.trilogyed.bookservice.controller;
 
 import com.trilogyed.bookservice.model.Note;
 import com.trilogyed.bookservice.service.NoteService;
-import com.trilogyed.bookservice.util.messages.NoteListEntry;
+import com.trilogyed.bookservice.util.messages.NoteEntry;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/notes")
 public class NoteController {
     public static final String EXCHANGE = "note-exchange";
-    public static final String ROUTING_KEY = "note.list.add.note";
+    public static final String ROUTING_KEY = "note.queue.add.note.controller";
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
@@ -29,20 +28,20 @@ public class NoteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createNote(@RequestBody NoteListEntry noteListEntry) {
+    public void createNote(@RequestBody NoteEntry noteEntry) {
         // create message to send to email list creation queue
         System.out.println("Sending note...");
-        rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY, noteListEntry);
+        rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY, noteEntry);
         System.out.println("Message Sent");
     }
 
     @PutMapping(value = "/{noteId}")
     @ResponseStatus(HttpStatus.OK)
     public void updateNote(@PathVariable int noteId, @RequestBody Note note) {
-        NoteListEntry noteListEntry = new NoteListEntry(note.getBookId(), note.getNote());
-        noteListEntry.setNoteId(noteId);
+        NoteEntry noteEntry = new NoteEntry(note.getBookId(), note.getNote());
+        noteEntry.setNoteId(noteId);
         System.out.println("Updating note...");
-        rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY, noteListEntry);
+        rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY, noteEntry);
         System.out.println("Note updated");
     }
 

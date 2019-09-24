@@ -5,17 +5,17 @@ import java.util.Objects;
 /*Task:
  *  WILL SERVE AS THE MESSAGE THAT WE WILL SEND OVER THE WIRE
  */
-public class NoteListEntry {
+public class NoteEntry {
     private int noteId;
     private int bookId;
     private String note;
 
-    public NoteListEntry(int bookId, String note) {
+    public NoteEntry(int bookId, String note) {
         this.bookId = bookId;
         this.note = note;
     }
 
-    public NoteListEntry() {
+    public NoteEntry() {
     }
 
     public int getNoteId() {
@@ -46,7 +46,7 @@ public class NoteListEntry {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NoteListEntry that = (NoteListEntry) o;
+        NoteEntry that = (NoteEntry) o;
         return noteId == that.noteId &&
                 bookId == that.bookId &&
                 Objects.equals(note, that.note);
@@ -59,7 +59,7 @@ public class NoteListEntry {
 
     @Override
     public String toString() {
-        return "NoteListEntry{" +
+        return "NoteEntry{" +
                 "noteId=" + noteId +
                 ", bookId=" + bookId +
                 ", note='" + note + '\'' +

@@ -1,4 +1,4 @@
-package com.trilogyed.noteconsumer;
+package com.trilogyed.notequeueconsumer;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -7,17 +7,22 @@ import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
+/**
+ * Note-Queue-Consumer
+ * Purpose:
+ * Needed: @EnableFeignClients, @EnableDiscoveryClient
+ */
+
 @EnableFeignClients
+@EnableDiscoveryClient
 @SpringBootApplication
-public class NoteConsumerApplication {
-	// DEFINE TOPIC EXCHANGE NAME FOR COMMUNICATION
+public class NoteQueueConsumerApplication {
 	public static final String TOPIC_EXCHANGE_NAME = "note-exchange";
-	// DEFINE NAME OF QUEUE THAT THE APPLICATION WILL BE USING
 	public static final String QUEUE_NAME = "note-queue";
-	// DEFINE ROUTING KEY THAT IS MANDATORY FOR ALL TRANSACTIONS
 	public static final String ROUTING_KEY = "note.#";
 
 	@Bean
@@ -41,7 +46,7 @@ public class NoteConsumerApplication {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(NoteConsumerApplication.class, args);
+		SpringApplication.run(NoteQueueConsumerApplication.class, args);
 	}
 
 }

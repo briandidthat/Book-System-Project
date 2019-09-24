@@ -4,6 +4,7 @@ import com.trilogyed.noteservice.dao.NoteDao;
 import com.trilogyed.noteservice.exception.NotFoundException;
 import com.trilogyed.noteservice.model.Note;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
+@RefreshScope
 public class NoteViewController {
 
     @Autowired

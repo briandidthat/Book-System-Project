@@ -2,7 +2,6 @@ package com.trilogyed.bookservice.controller;
 
 import com.trilogyed.bookservice.exception.NotFoundException;
 import com.trilogyed.bookservice.model.Book;
-import com.trilogyed.bookservice.model.Note;
 import com.trilogyed.bookservice.service.BookService;
 import com.trilogyed.bookservice.service.NoteService;
 import com.trilogyed.bookservice.viewmodel.BookViewModel;
@@ -11,6 +10,7 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +25,7 @@ import java.util.List;
 
 @CacheConfig(cacheNames = {"books"})
 @RestController
+@RefreshScope
 @RequestMapping("/books")
 public class BookController {
     @Autowired
